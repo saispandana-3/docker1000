@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-    apt-get install -y openssh-server sudo && \
+    apt-get install -y openssh-server sudo python3 && \
     mkdir /var/run/sshd && \
     echo 'root:root' | chpasswd && \
     echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && \
