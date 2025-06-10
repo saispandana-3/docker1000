@@ -1,11 +1,13 @@
 FROM ubuntu:20.04
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && \
     apt-get install -y openssh-server sudo && \
     mkdir /var/run/sshd && \
-    echo 'ubuntu:ubuntu' | chpasswd && \
-    useradd -m -s /bin/bash ubuntu && \
-    echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+    echo 'root:root' | chpasswd && \
+    echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
 EXPOSE 22
 
