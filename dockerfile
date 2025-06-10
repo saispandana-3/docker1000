@@ -2,6 +2,7 @@ FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Install SSH, sudo, and Python
 RUN apt-get update && \
     apt-get install -y openssh-server sudo python3 && \
     mkdir /var/run/sshd && \
@@ -12,4 +13,5 @@ RUN apt-get update && \
 EXPOSE 22
 
 CMD ["/usr/sbin/sshd", "-D"]
+
 
