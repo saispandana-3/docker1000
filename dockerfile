@@ -1,20 +1,20 @@
 FROM ubuntu:latest
 
-# Install SSH server and sudo
-RUN apt-get update && apt-get install -y openssh-server sudo
+# Install SSH and sudo
+RUN apt-get update && \
+    apt-get install -y openssh-server sudo && \
+    mkdir /var/run/sshd
 
-# Create SSH directory and set up password for root or a user
-RUN mkdir /var/run/sshd
-RUN echo 'root:rootpassword' | chpasswd
+# Set root password to 'root'
+RUN echo 'root:root' | chpasswd
 
-# Permit root login via SSH and password authentication
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+# Permit root login over SSH
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    echo 'root ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Expose SSH port
 EXPOSE 22
 
-# Start sshd in foreground
+# Start SSH service
 CMD ["/usr/sbin/sshd", "-D"]
-
 
