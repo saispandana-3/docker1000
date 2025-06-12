@@ -1,6 +1,6 @@
 ---
 - name: Patch Ubuntu container
-  hosts: ubuntu_container
+  hosts: all
   become: yes
   tasks:
     - name: Update APT cache
