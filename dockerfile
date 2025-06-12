@@ -8,7 +8,8 @@ RUN apt-get update && \
     echo 'root:root' | chpasswd && \
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     ssh-keygen -A && \
-    echo 'root ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+    echo 'root ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers 
+	
 
 EXPOSE 22
 
