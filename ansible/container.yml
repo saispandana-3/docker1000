@@ -21,4 +21,12 @@
     - name: create file
       file:
         path: /root/annsible
-        state: touch        
+        state: touch 
+    - name:insert content
+      copy: 
+        path: /var/www/html/index.html
+        content: "<h1> how </h1>"
+    - name: restart container
+      service:
+          name: apache2
+          state: restarted       
